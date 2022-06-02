@@ -9,7 +9,6 @@ class TodoAdmin(admin.ModelAdmin):
         "item",
         "status",
         "created_at",
-        "updated_at",
-        
+        "updated_at",     
     ]
     date_hierarchy = "created_at"

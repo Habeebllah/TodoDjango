@@ -28,6 +28,19 @@
         </div>
         <button type="submit" class="btn btn-primary mr-3">Save</button>
       </form>
+
+      {% for message in messages %}
+        <div class="mes text-light bg-primary text-center" style="background-color:red; margin-bottom: 15px; border-radius:5px; color:white; text-align: center">
+        {{ message }}</div>
+        {% endfor %}
+        <script type="text/javascript">
+        window.setTimeout(function() {
+            $(".mes").fadeTo(700, 0).slideUp(500, function(){
+                $(this).remove(); 
+            });
+        }, 2000);
+        </script>
+      
         <!-- <button type="button" class="btn btn-warning">Get Tasks</button> -->
       </div>
       <!-- Lazy -->
@@ -52,7 +65,7 @@
               <td>{{i.status}}</td>
               <td>
                 <button class="btn btn-success"><a href="{% url "update" i.id %}">Edit</a></button>
-                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-danger" type="button"  data-toggle="modal" data-target="#exampleModal">Delete</button>
               </td>
             </tr>
             {% else %}
@@ -63,16 +76,43 @@
               <td>{{i.status}}</td>
               <td>
                   <button class="btn btn-success"><a href="{% url "update" i.id %}">Edit</a></button>
-                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-danger" type="button"  data-toggle="modal" data-target="#exampleModal">Delete</button>
               </td>
             </tr>
             {% endif %}
+
+            
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"><a href="{% url 'delete' i.id %}">Delete</a></button>
+      </div>
+    </div>
+  </div>
+</div>
             {% endfor %}
             
           </tbody>
         </table>
       </div>
     </div>
+
+
+
+
+
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
   </body>
